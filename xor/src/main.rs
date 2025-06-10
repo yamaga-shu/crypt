@@ -1,24 +1,13 @@
+use xor::{bits, bool};
+
 fn main() {
     let a = true;
     let b = false;
 
-    println!("XOR between {} and {} is {}", a, b, xor(a, b));
-}
+    println!("Boolean XOR between {} and {} is {}", a, b, bool::xor(a, b));
 
-// XOR演算を行う関数
-fn xor(a: bool, b: bool) -> bool {
-    a ^ b
-}
+    let c = 0b1101_0011;
+    let d = 0b1010_1000;
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_xor() {
-        assert_eq!(xor(true, true), false);
-        assert_eq!(xor(true, false), true);
-        assert_eq!(xor(false, true), true);
-        assert_eq!(xor(false, false), false);
-    }
+    println!("Bits XOR between {} and {} is {}", c, d, bits::xor(c, d))
 }
