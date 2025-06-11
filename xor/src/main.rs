@@ -19,4 +19,13 @@ fn main() {
     )
     // Output:
     // Bits XOR between 11010011 and 10101000 is 01111011
+
+    // decrypt
+    let decrypted_bits = bits::xor(cipher_bits, key_bits);
+    println!(
+        "Decrypted bits: {:08b} using key {:08b} is {:08b}",
+        cipher_bits, key_bits, decrypted_bits
+    );
+    // Output:
+    // Decrypted bits: 01111011 using key 10101000 is 11010011
 }
