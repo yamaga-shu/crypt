@@ -6,7 +6,7 @@ The Data Encryption Standard (DES) is a widely used symmetric key encryption alg
 
 ### Feistel structure
 
-![One Round](./assets/feistel-structure.drawio.png)
+![Feistel structure](./assets/feistel-structure.drawio.png)
 
 A Feistel round is a key component of the Feistel structure used in the DES algorithm. Each round consists of several steps:
 
