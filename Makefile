@@ -1,5 +1,3 @@
-
-
 ### up: docker container を立ち上げます
 .PHONY: up
 up:
