@@ -1,4 +1,4 @@
-FROM rust:slim-bookworm
+FROM mcr.microsoft.com/devcontainers/go:1.23
 
 WORKDIR /workspace
 
