@@ -2,8 +2,8 @@ package xor
 
 import "testing"
 
-func TestBinary(t *testing.T) {
-	tests := []struct {
+func TestBits(t *testing.T) {
+	cases := []struct {
 		a, b   int
 		expect int
 	}{
@@ -14,10 +14,10 @@ func TestBinary(t *testing.T) {
 		{a: 0b1111, b: 0b1111, expect: 0b0000},
 	}
 
-	for _, tt := range tests {
-		result := bits(tt.a, tt.b)
-		if result != tt.expect {
-			t.Errorf("bits(%b, %b) = %b; want %b", tt.a, tt.b, result, tt.expect)
+	for _, c := range cases {
+		result := bits(c.a, c.b)
+		if result != c.expect {
+			t.Errorf("bits(%b, %b) = %b; want %b", c.a, c.b, result, c.expect)
 		}
 	}
 }
