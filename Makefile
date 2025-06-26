@@ -1,3 +1,8 @@
+### build: docker container をキャッシュ無しでbuildします
+.PHONY: build
+build:
+	docker build --no-cache -t crypt .
+
 ### up: docker container を立ち上げます
 .PHONY: up
 up:
