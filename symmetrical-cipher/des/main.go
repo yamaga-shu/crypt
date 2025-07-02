@@ -65,11 +65,11 @@ func main() {
 	// Encrypted: 5417c391196d2fd170f54219849d67e5
 
 	// Decrypt
-	decripted, err := decryptDES(key, iv, ciphertext)
+	decrypted, err := decryptDES(key, iv, ciphertext)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("Decrypted: %s\n", decripted)
+	fmt.Printf("Decrypted: %s\n", decrypted)
 	// Output:
 	// Decrypted: Hello, DES!
 }
