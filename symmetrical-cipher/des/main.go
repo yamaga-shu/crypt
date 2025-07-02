@@ -42,30 +42,40 @@ func decryptDES(key, iv, ciphertext []byte) ([]byte, error) {
 }
 
 func main() {
-	// 8-byte key for DES
-	key := []byte("12345678")
+	// Generate a secure random 8-byte key for DES
+	key := make([]byte, des.BlockSize)
+	if _, err := io.ReadFull(rand.Reader, key); err != nil {
+		panic(err)
+	}
+	fmt.Printf("key: %x\n", key)
+	// Output:
+	// key: 5692f2be14ed6cfe
+
 	// IV should be same size as block size
 	iv := make([]byte, des.BlockSize)
 	if _, err := io.ReadFull(rand.Reader, iv); err != nil {
 		panic(err)
 	}
-	plain := "Hello, DES!"
+	fmt.Printf("iv: %x\n", iv)
+	// Output:
+	// iv: 9ab302f44b55a6c2
 
+	plain := "Hello, DES!"
 	fmt.Printf("Original text: %s\n", plain)
 	// Output:
 	// Original text: Hello, DES!
 
 	// Encrypt
-	ciphertext, err := encryptDES(key, iv, []byte(plain))
+	encrypted, err := encryptDES(key, iv, []byte(plain))
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("Encrypted: %x\n", ciphertext)
+	fmt.Printf("Encrypted: %x\n", encrypted)
 	// Output:
-	// Encrypted: 5417c391196d2fd170f54219849d67e5
+	// Encrypted: 3f632d82a60fec682abb2edcfaa5851d
 
 	// Decrypt
-	decrypted, err := decryptDES(key, iv, ciphertext)
+	decrypted, err := decryptDES(key, iv, encrypted)
 	if err != nil {
 		panic(err)
 	}
