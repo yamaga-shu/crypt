@@ -1,8 +1,8 @@
 package main
 
 import (
+	"crypto/aes"
 	"crypto/cipher"
-	"crypto/des"
 	"crypto/rand"
 	"fmt"
 	"io"
@@ -10,9 +10,9 @@ import (
 	"github.com/yamaga-shu/crypt/block-cipher-mode/pkcs7"
 )
 
-// encrypt DES with CBC mode
-func encryptDES(key, iv, plaintext []byte) ([]byte, error) {
-	block, err := des.NewCipher(key)
+// encryptAES uses pkcs7.Pad for padding
+func encryptAES(key, iv, plaintext []byte) ([]byte, error) {
+	block, err := aes.NewCipher(key)
 	if err != nil {
 		return nil, err
 	}
@@ -24,9 +24,9 @@ func encryptDES(key, iv, plaintext []byte) ([]byte, error) {
 	return ciphertext, nil
 }
 
-// decrypt DES with CBC mode
-func decryptDES(key, iv, ciphertext []byte) ([]byte, error) {
-	block, err := des.NewCipher(key)
+// decryptAES uses pkcs7.Unpad for unpadding
+func decryptAES(key, iv, ciphertext []byte) ([]byte, error) {
+	block, err := aes.NewCipher(key)
 	if err != nil {
 		return nil, err
 	}
@@ -40,44 +40,44 @@ func decryptDES(key, iv, ciphertext []byte) ([]byte, error) {
 }
 
 func main() {
-	// Generate a secure random 8-byte key for DES
-	key := make([]byte, des.BlockSize)
+	// 16-byte key for AES-128
+	key := make([]byte, aes.BlockSize)
 	if _, err := io.ReadFull(rand.Reader, key); err != nil {
 		panic(err)
 	}
 	fmt.Printf("key: %x\n", key)
 	// Output:
-	// key: 5692f2be14ed6cfe
+	// key: 734d663ef93ec3c4bf04ecd0f671692e
 
 	// IV should be same size as block size
-	iv := make([]byte, des.BlockSize)
+	iv := make([]byte, aes.BlockSize)
 	if _, err := io.ReadFull(rand.Reader, iv); err != nil {
 		panic(err)
 	}
 	fmt.Printf("iv: %x\n", iv)
 	// Output:
-	// iv: 9ab302f44b55a6c2
+	// iv: fe28280ec4c5e08c7af2c0d82294e7b8
 
-	plain := "Hello, DES!"
+	plain := "Hello, AES!"
 	fmt.Printf("Original text: %s\n", plain)
 	// Output:
-	// Original text: Hello, DES!
+	// Original text: Hello, AES!
 
 	// Encrypt
-	encrypted, err := encryptDES(key, iv, []byte(plain))
+	encrypted, err := encryptAES(key, iv, []byte(plain))
 	if err != nil {
 		panic(err)
 	}
 	fmt.Printf("Encrypted: %x\n", encrypted)
 	// Output:
-	// Encrypted: 3f632d82a60fec682abb2edcfaa5851d
+	// Encrypted: 3c14f20b1285267422d4941a6c5949f3
 
 	// Decrypt
-	decrypted, err := decryptDES(key, iv, encrypted)
+	decrypted, err := decryptAES(key, iv, encrypted)
 	if err != nil {
 		panic(err)
 	}
 	fmt.Printf("Decrypted: %s\n", decrypted)
 	// Output:
-	// Decrypted: Hello, DES!
+	// Decrypted: Hello, AES!
 }
