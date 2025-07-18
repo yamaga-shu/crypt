@@ -11,11 +11,11 @@ RSA (Rivest-Shamir-Adleman) is one of the first public-key cryptosystems and is 
    - **Decryption**: The recipient uses their private key to decrypt the message.
 
 3. **Key Generation**:
-   - Choose two distinct large random prime numbers \( p \) and \( q \).
-   - Compute \( n = pq \). \( n \) is used as the modulus for both the public and private keys.
-   - Compute the totient \(\phi(n) = (p-1)(q-1)\).
-   - Choose an integer \( e \) such that \( 1 < e < \phi(n) \) and \( e \) is coprime to \(\phi(n)\). \( e \) is the public exponent.
-   - Determine \( d \) as \( d \equiv e^{-1} \mod \phi(n) \). \( d \) is the private exponent.
+- Choose two distinct large random prime numbers \( p \) and \( q \).
+- Compute \( n = p q \). \( n \) is used as the modulus for both the public and private keys.
+- Compute the totient \( \phi(n) = (p-1)(q-1) \).
+- Choose an integer \( e \) such that \( 1 < e < \phi(n) \) and \( e \) is coprime to \( \phi(n) \). \( e \) is the public exponent.
+- Determine \( d \) as \( d \equiv e^{-1} \mod \phi(n) \). \( d \) is the private exponent.
 
 4. **Security**: The security of RSA is based on the difficulty of factoring the large number \( n \) into its prime components. As of now, no efficient algorithm exists for factoring large numbers, making RSA secure when large keys are used.
 
